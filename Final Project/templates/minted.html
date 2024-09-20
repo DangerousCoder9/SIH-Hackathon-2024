@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Token Minting</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        #status {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Mint a Token</h1>
+    <form id="mintForm" action="/minted" method="post">
+        <label for="uri">Token URI:</label>
+        <input type="text" id="uri" name="uri" placeholder="Enter URI" required />
+        <button type="submit">Submit</button>
+    </form>
+    <div id="status"></div>
+
+    <!-- Include Web3.js -->
+    <script src="https://cdn.jsdelivr.net/npm/web3@1.7.3/dist/web3.min.js"></script>
+    <!-- Include your JavaScript file -->
+    <script src="script.js"></script>
+</body>
+
+</html>

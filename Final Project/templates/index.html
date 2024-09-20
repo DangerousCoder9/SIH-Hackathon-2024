@@ -1,0 +1,1147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sales Prediction</title>
+    <style>
+        /* Reset some default browser styles */
+        body,
+        h1,
+        h2,
+        label,
+        input {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Basic styling for the body */
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            background-color: #f4f4f4;
+            padding: 20px;
+        }
+
+        /* Styling for the main heading */
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        /* Styling for the form */
+        form {
+            max-width: 600px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Styling for form labels */
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        /* Styling for form inputs */
+        input[type="number"] {
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+
+        input[type="submit"] {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+
+        /* Styling for the prediction result */
+        h2 {
+            text-align: center;
+            color: #333;
+            margin-top: 20px;
+        }
+        /* Starting the styles for the rest of the web */
+        body{
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background: #020824;
+}
+
+*{
+    box-sizing: border-box;
+}
+
+h1,h2,h3{
+    margin: 0;
+    color: #fff;
+}
+
+h1,h2{
+    text-transform: uppercase;
+}
+
+h2{
+    font-size: 2em;
+    position: relative;
+    display: inline-block;
+}
+
+h2:not(
+    .explore h2,.trial h2,footer h2
+)::before,
+.explore h3::before {
+    content: '';
+    background: linear-gradient(90deg,rgba(72,252,139,0) 0%,#48fc8b 50%, rgba(72,252,139,0) 100%);
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: -0.5em;
+    width: 100%;
+    height: 0.1em;
+}
+
+h3{
+    margin-bottom: 1em;
+}
+
+a{
+    text-decoration: none;
+    color: #fff;
+    font-size: 0.9em;
+}
+
+p, span{
+    margin: 0;
+    color: #eee;
+    font-size: 0.8em;
+    line-height: 30px;
+    letter-spacing: 1px;
+}
+
+small{
+    color: #eee;
+}
+
+ul{
+    list-style-type: none;
+    padding: 0;
+}
+
+section,footer{
+    margin: 8em 0;
+}
+
+header{
+    background: url(./assets/img/background.jpg) no-repeat center;
+    background-size: cover;
+    position: relative;
+}
+
+.container{
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2em;
+}
+
+header .container{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.btn{
+    padding: 0.7em 2em;
+    border-radius: 0.3em;
+    text-transform: uppercase;
+    transition: 0.3s;
+}
+
+.btn-primary{
+    background:  linear-gradient(90deg,#48fc8b,#1de7ea);
+    color: #111;
+    border: none;
+}
+
+.btn-primary:hover{
+    background: #1de7ea;
+}
+
+.btn-secondary{
+    border: 1px #1de7ea solid;
+    color: #fff;
+}
+
+.btn-secondary:hover{
+    background: #fff;
+    color: #111;
+}
+
+.btn-group .btn{
+    margin: 1em;
+}
+
+nav{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 2em 0
+}
+
+nav a{
+    text-transform: uppercase;
+}
+
+.brand{
+    font-size: 1.6em;
+    font-weight: 700;
+}
+
+nav li{
+    display: inline-block;
+    margin: 0 0 0.7em;
+}
+
+.search{
+    text-align: center;
+    border: none;
+    outline: none;
+    width: 8em;
+    transition: 0.3s;
+}
+
+.menu li{
+    margin: 12px;
+}
+
+.menu-btn{
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.5em;
+    color: #fff;
+    display: none;
+}
+
+.menu .btn-primary{
+    display: none;
+} 
+
+.header-body{
+    min-height: 60vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 3em 0 1em 0;
+}
+
+.header-body div div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 1em 0;
+}
+
+h1{
+    font-size: 4.5em;
+}
+
+.header-body p{
+    max-width: 20em;
+    text-transform: uppercase;
+    line-height: 23px;
+    font-size: 0.7em;
+}
+
+.header-body p:nth-child(1){
+    text-align: right;
+}
+
+.bar{
+    width: 0.4em;
+    height: 4em;
+    background: linear-gradient(0deg,rgba(72,252,139,0) 0%,#48fc8b 50%,rgba(72,252,139,0)100%);
+    filter: drop-shadow(0 0 0.5em #48fc48);
+    margin: 0 2em;
+}
+
+.grid-img{
+    width: 100%;
+    margin: 0 auto;
+}
+
+.header-body .btn,.trial .btn{
+    font-size: 1.1em;
+}
+
+.header-body .btn-group{
+    margin: 3em 0;
+}
+
+.services .heading{
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    grid-gap: 2em;
+}
+
+.cards{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2em;
+    margin: 10em 0 4em 0;
+}
+
+.services .card{
+    padding: 1em;
+    text-align: center;
+    background: rgba(0, 0, 0, 0.5);
+    background: rgba(127,127,127,0.25);
+    border-radius: 10px;
+    border: 1px solid rgba(255,255,255,0.18);
+    position: relative;
+}
+
+.services .card img{
+    width: 8em;
+    margin: -5em 0 1em 0;
+}
+
+.services .card .light{
+    background: #48fc48;
+    width: 6em;
+    height: 6em;
+    border-radius: 50%;
+    position: absolute;
+    top: -2em;
+    left: 50%;
+    transform: translate(-50%);
+    filter: blur(15px);
+    z-index: -1;
+}
+
+.services .card:nth-child(1) .light{
+    background: #bcb83d;
+}
+
+.services .card:nth-child(2) .light{
+    background: #6e3dbc;
+}
+
+.services .card:nth-child(3) .light{
+    background: #ef3636;
+}
+
+.featured .heading{
+    text-align: center;
+}
+
+.featured .card{
+    padding: 1.3em;
+    border: 1px solid #1cd0ff;
+    border-radius: 10px;
+    background: linear-gradient(-45deg,rgb(5,38,93),rgba(5,38,93,0.3));
+    position: relative;
+}
+
+.featured .art-img{
+    border: 1px solid #1cd0ff;
+    border-radius: 10px;
+    width: 100%;
+    position: relative;
+    z-index: 1;
+}
+
+.featured h3{
+    margin: 0.5em 0;
+}
+
+.bid .favourites,.favourites div{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.favourites{
+    margin: 1em 0;
+}
+
+.favourites img{
+    width: 2em;
+    border: 1px solid #fff;
+    border-radius: 50%;
+}
+
+.featured .card .art-title{
+    margin: 1em 0;
+}
+
+.favourites small{
+    color: #fff;
+    padding: 0.55em;
+    background: #2a304c;
+    border: 1px solid #fff;
+    border-radius: 50%;
+}
+
+.favourites img:not(:first-child),
+.favourites small{
+    margin-left: -0.8em;
+}
+
+.bid div:nth-child(2){
+    text-align: right;
+}
+
+.featured .light{
+    background: linear-gradient(120deg,#fff,rgba(255,255,255,0));
+    position: absolute;
+    top: 1.1em;
+    left: 1.1em;
+    width: 80%;
+    padding-top: 80%;
+    z-index: 0;
+    border-radius: 10px;
+    filter: drop-shadow(0 0 0.7em #1cd0ff);
+    transition: 0.4s;
+}
+
+.featured .card:hover .light{
+    top: 0.6em;
+    left: 0.6em;
+}
+
+.featured .card:nth-child(2){
+    border-color: #ffc23d;
+    background: linear-gradient(-45deg,rgb(55,30,39),rgba(55,30,39,0.3));
+}
+
+.featured .card:nth-child(2) .art-img{
+    border-color: #ffc23d;
+}
+
+.featured .card:nth-child(2) .light{
+    filter: drop-shadow(0 0 0.7em #ffc23d);
+}
+
+.featured .card:nth-child(3){
+    border-color: #6bd146;
+    background: linear-gradient(-45deg,rgb(9,47,57),rgba(9,47,57,0.3));
+}
+
+.featured .card:nth-child(3) .art-img{
+    border-color: #6bd146;
+}
+
+.featured .card:nth-child(3) .light{
+    filter: drop-shadow(0 0 0.7em #6bd146);
+}
+
+.explore{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 2em;
+}
+
+.grid{
+    display: grid;
+    grid-template-columns: repeat(6,1fr);
+    grid-template-rows: repeat(6,1fr);
+    grid-gap: 1em;
+}
+
+.grid div{
+    background: url(./assets/img/grid.gif) fixed;
+    background-size: cover;
+    background-position: -15em 100%;
+    border-radius: 10px;
+    transition: 0.2s;
+}
+
+.grid div:nth-child(1){
+    grid-column: 3/4;
+    grid-row: 1/2;
+}
+
+.grid div:nth-child(2){
+    grid-column: 1/4;
+    grid-row: 1/2;
+}
+
+.grid div:nth-child(3){
+    grid-column: 1/2;
+    grid-row: 5/6;
+}
+
+.grid div:nth-child(4){
+    grid-column: 2/4;
+    grid-row: 5/7;
+}
+
+.grid div:nth-child(5){
+    grid-column: 4/6;
+    grid-row: 1/3;
+}
+
+.grid div:nth-child(6){
+    grid-column: 6/7;
+    grid-row: 2/3;
+}
+
+.grid div:nth-child(7){
+    grid-column: 4/7;
+    grid-row: 3/6;
+}
+
+.grid div:hover{
+    transform: scale(1.05);
+}
+
+.stats{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1.5em;
+}
+
+.explore small{
+    display: block;
+    margin-bottom: 0.5em;
+}
+
+.explore h3{
+    position: relative;
+    display: inline-block;
+}
+
+.explore p:not(.stats p){
+    margin: 1.5em 0;
+}
+
+.artists .trial{
+    text-align: center;
+}
+
+.artists .heading p{
+    margin: 3em auto;
+    max-width: 700px;
+}
+
+.artists .cards{
+    margin: 6em 0 4m 0;
+    flex-wrap: wrap;
+}
+
+.artists .card{
+    border: 1px #42a3c3 solid;
+    background: radial-gradient(rgb(17,68,96),rgba(17,68,96,0.5));
+    border-radius: 10px;
+    position: relative;
+    padding: 7em 1em 1em 1em;
+    max-width: 16em;
+}
+
+.artists .bg-img{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 0;
+    border-radius: 10px;
+}
+
+.artists .profile-img{
+    width: 5em;
+    position: relative;
+    border: 0.5em rgb(17,68,96) solid;
+    border-radius: 50%;
+    margin-bottom: 1em;
+}
+
+.artists .card .p{
+    margin: 1em 0 1.5em 0;
+}
+
+.stars{
+    color: #ffb92d;
+}
+
+.card-btn{
+    background: none;
+    border: 1px #284b60 solid;
+    width: 100%;
+    padding: 1em 0;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.card-btn:hover{
+    background: rgba(255,255,255,0.1);
+}
+
+.artists .card:nth-child(2){
+    background: radial-gradient(rgb(30,35,99),rgba(30,35,99,0.5));
+    border-color: #394b95;
+}
+
+.artists.card:nth-child(2) .profile-img{
+    border-color: rgb(30,35,99);
+}
+
+.artists .card:nth-child(2) .card-btn{
+    border: #353165;
+}
+
+.artists .card:nth-child(3){
+    background: radial-gradient(rgb(82,22,81),rgba(82,22,81,0.5));
+    border-color: #bb3bad;
+}
+
+.artists .card:nth-child(3) .profile-img{
+    border-color: rgb(82,22,81);
+}
+
+.artists .card:nth-child(3) .card-btn{
+    border-color: #552e58;
+}
+
+.artists.card:nth-child(4){
+    background: radial-gradient(rgb(78,13,48),rgba(78,13,48,0.5));
+    border-color: #b14d44;
+}
+
+.artists .card:nth-child(4) .profile-img{
+    border-color: #472847;
+}
+
+.trial{
+    background: url(./assets/img/background.jpg) center no-repeat;
+    background-size: cover;
+    text-align: center;
+}
+
+.trial p{
+    margin: 2em auto 3em auto;
+    max-width: 700px;
+}
+
+footer{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 2em;
+}
+
+footer li{
+    margin: 1em 0;
+}
+
+footer li a{
+    color: #ccc;
+}
+
+footer li a:hover{
+    text-decoration: underline;
+}
+
+footer input{
+    background: #1b2039;
+    border: none;
+    padding: 0.7em;
+    border-radius: 5px;
+}
+
+footer hr{
+    border: 1px #1b2039 solid;
+    margin: 1.5em 0;
+}
+
+footer p{
+    margin: 1em 0;
+}
+
+@media screen and (max-width:1000px) {
+    .menu-btn{
+        display: block;
+    }
+    nav .menu{
+        background: #020824;
+        position: absolute;
+        left: 0;
+        top: 5em;
+        width: 100%;
+        height: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        opacity: 0;
+        transition: 0.6s;
+        overflow: hidden;
+        z-index: 9;
+    }
+    nav .btn-primary{
+        display: none;
+    }
+    .menu .btn-primary{
+        display: block;
+    }
+    nav .menu li{
+        margin: 1em 0;
+    }
+    nav .menu-open{
+        opacity: 1;
+        height: 20em;
+        overflow: visible;
+    }
+}
+
+@media screen and (max-width:700px) {
+    html{
+        font-size: 14px;
+    }
+    .header-body div div{
+        flex-direction: column;
+        text-align: center;
+    }
+    .header-body p{
+        text-align: center !important;
+    }
+    .bar{
+        margin: 2em 0;
+    }
+    .services .cards{
+        flex-direction: column;
+    }
+    .services .card{
+        margin: 4em 0 1em 0;
+    }
+    .services .heading,.explore{
+        grid-template-columns: 1fr;
+    }
+    .grid{
+        height: 20em;
+    }
+}
+
+@media screen and (max-width:950px) {
+    .featured .cards{
+        flex-direction: column;
+    }
+}
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <!-- <link rel="stylesheet" href="index.js"> -->
+</head>
+
+<body>
+
+    <header></header>
+    <div class="container">
+        <nav>
+            <a href="index.html" class="brand">Dev Dazzlers</a>
+            <ul class="menu">
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Artworks</a></li>
+                <li><a href="#">About</a></li>
+                <li><a href="#">Artist</a></li>
+                <li><a href="#" class="btn btn-primary">Login</a></li>
+            </ul>
+            <a href="#" class="btn btn-primary">Login</a>
+            <button class="menu-btn">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+        </nav>
+
+        <div class="header-body">
+            <div>
+                <div>
+                    <p>
+                        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aperiam, accusamus.
+                    </p>
+                    <span class="bar"></span>
+                    <h1>Buy NFTS</h1>
+                </div>
+
+                <div>
+                    <h1>Sell NFTS</h1>
+                    <span class="bar"></span>
+                    <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quia, debitis.</p>
+                </div>
+                <div class="btn-group">
+                    <a href="#" class="btn btn-primary">Join Us</a>
+                    <a href="#" class="btn btn-primary">Learn More</a>
+                </div>
+            </div>
+        </div>
+
+        <img src="../static/assets/img/grid1-top.png" class="grid-img">
+
+    </div>
+    </header>
+    <!-- header ends here -->
+
+    <div class="container">
+        <img src="../static/assets/img/grid1-bottom.png" class="grid-img">
+        <section class="services">
+            <div class="heading">
+                <h2>What we actually do?</h2>
+                <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Odio quisquam voluptatibus at praesentium
+                    natus a fugit. Similique, error atque pariatur earum provident ducimus repellendus aspernatur
+                    inventore sapiente consectetur dolore temporibus?</p>
+            </div>
+            <div class="cards">
+                <div class="card">
+                    <div class="light"></div>
+                    <img src="../static/assets/img/wallet.png" alt="wallet">
+                    <h3>Set up your wallet</h3>
+                    <p>NFT's are transforming the way commerce is transcated</p>
+                </div>
+
+                <div class="card">
+                    <div class="light"></div>
+                    <img src="../static/assets/img/camera.png" alt="camera">
+                    <h3>Create your collection</h3>
+                    <p>NFT's are transforming the way commerce is transcated</p>
+                </div>
+
+                <div class="card">
+                    <div class="light"></div>
+                    <img src="../static/assets/img/gift.png" alt="gift">
+                    <h3>Add your NFTS</h3>
+                    <p>NFT's are transforming the way commerce is transcated</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="featured">
+            <div class="heading">
+                <h2>Featured Artworks</h2>
+            </div>
+
+            <div class="cards">
+                <div class="card">
+                    <img src="../static/assets/img/crystal1.jpg" class="art-img">
+                    <div class="light"></div>
+                    <h3 class="art-title">Blue Color Crystal</h3>
+                    <!-- div favourites naam ka aayega idhr ek -->
+                    <div class="favourites">
+                        <div>
+                            <img src="../static/assets/img/user1.jpg" alt="artwork">
+                            <img src="../static/assets/img/user2.jpg" alt="artwork">
+                            <img src="../static/assets/img/user3.jpg" alt="artwork">
+                            <small>
+                                2+
+                            </small>
+                        </div>
+                        <div>
+                            <span>Favourite This</span>
+                        </div>
+                    </div>
+
+                    <div class="bid">
+                        <div>
+                            <p>Current Bid</p>
+                            <h3>
+                                <i class="fab fa-ethereum"></i>
+                                2.65ETH
+                            </h3>
+                        </div>
+
+                        <div>
+                            <p>Ends In</p>
+                            <h3>10H.33M</h3>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <img src="../static/assets/img/crystal2.jpg" class="art-img">
+                        <div class="light"></div>
+                        <h3 class="art-title">Orange Color Crystal</h3>
+                        <!-- div favourites naam ka aayega idhr ek -->
+                        <div class="favourites">
+                            <div>
+                                <img src="../static/assets/img/user1.jpg" alt="artwork">
+                                <img src="../static/assets/img/user2.jpg" alt="artwork">
+                                <img src="../static/assets/img/user3.jpg" alt="artwork">
+                                <small>
+                                    2+
+                                </small>
+                            </div>
+                            <div>
+                                <span>Favourite This</span>
+                            </div>
+                        </div>
+
+                        <div class="bid">
+                            <div>
+                                <p>Current Bid</p>
+                                <h3>
+                                    <i class="fab fa-ethereum"></i>
+                                    2.65ETH
+                                </h3>
+                            </div>
+
+                            <div>
+                                <p>Ends In</p>
+                                <h3>10H.33M</h3>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <img src="../static/assets/img/crystal3.jpg" class="art-img">
+                            <div class="light"></div>
+                            <h3 class="art-title">Green Color Crystal</h3>
+                            <!-- div favourites naam ka aayega idhr ek -->
+                            <div class="favourites">
+                                <div>
+                                    <img src="../static/assets/img/user1.jpg" alt="artwork">
+                                    <img src="../static/assets/img/user2.jpg" alt="artwork">
+                                    <img src="../static/assets/img/user3.jpg" alt="artwork">
+                                    <small>
+                                        2+
+                                    </small>
+                                </div>
+                                <div>
+                                    <span>Favourite This</span>
+                                </div>
+                            </div>
+
+                            <div class="bid">
+                                <div>
+                                    <p>Current Bid</p>
+                                    <h3>
+                                        <i class="fab fa-ethereum"></i>
+                                        2.65ETH
+                                    </h3>
+                                </div>
+
+                                <div>
+                                    <p>Ends In</p>
+                                    <h3>10H.33M</h3>
+                                </div>
+                            </div>
+                        </div>
+        </section>
+
+        <section class="explore">
+            <div class="grid">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+
+            <div>
+                <h2>Explore our top art works</h2>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vel cupiditate voluptatibus nesciunt libero
+                    nisi doloribus. Quae provident numquam eum nulla?</p>
+                <div class="stats">
+                    <div>
+                        <small>Artworks</small>
+                        <h3>1305K</h3>
+                        <p>NFT's are transforming the way commerce</p>
+                    </div>
+                    <div>
+                        <small>Users</small>
+                        <h3>505K</h3>
+                        <p>NFT's are transforming the way commerce</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="artists">
+            <div class="heading">
+                <h2>Our top artists</h2>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Non, at assumenda repellat eum odit quo
+                    blanditiis ut vero eos sit!</p>
+            </div>
+            <div class="cards">
+                <div class="card">
+                    <img src="../static/assets/img/smoke1.jpg" class="bg-img">
+                    <img src="../static/assets/img/user1.jpg" class="profile-img">
+                    <h3>Esther Howard</h3>
+                    <div class="stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <span>5.0</span>
+                    </div>
+                    <p>NFT's are transforming the way commerce</p>
+                    <button class="card-btn">Follow</button>
+                </div>
+
+                <div class="card">
+                    <img src="../static/assets/img/smoke2.jpg" class="bg-img">
+                    <img src="../static/assets/img/user2.jpg" class="profile-img">
+                    <h3>Jane Copper</h3>
+                    <div class="stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <span>5.0</span>
+                    </div>
+                    <p>NFT's are transforming the way commerce</p>
+                    <button class="card-btn">Follow</button>
+                </div>
+
+                <div class="card">
+                    <img src="../static/assets/img/smoke3.jpg" class="bg-img">
+                    <img src="../static/assets/img/user3.jpg" class="profile-img">
+                    <h3>Wade Warren</h3>
+                    <div class="stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <span>5.0</span>
+                    </div>
+                    <p>NFT's are transforming the way commerce</p>
+                    <button class="card-btn">Follow</button>
+                </div>
+
+                <div class="card">
+                    <img src="../static/assets/img/smoke4.jpg" class="bg-img">
+                    <img src="../static/assets/img/user4.jpg" class="profile-img">
+                    <h3>Jenny Wilson</h3>
+                    <div class="stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <span>5.0</span>
+                    </div>
+                    <p>NFT's are transforming the way commerce</p>
+                    <button class="card-btn">Follow</button>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <section class="trial">
+        <h2>Get a free trial</h2>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptates, voluptatibus!</p>
+        <a href="#" class="btn btn-primary">Join us now</a>
+    </section>
+    <!-- Prediction model strt -->
+
+    <h1>Sales Prediction</h1>
+    <form action="/predict" method="post">
+        <label for="buyers">Number of Buyers:</label>
+        <input type="number" id="buyers" name="buyers" required><br><br>
+
+        <label for="transactions">Number of Transactions:</label>
+        <input type="number" id="transactions" name="transactions" required><br><br>
+
+        <input type="submit" value="Predict">
+    </form>
+
+    {% if prediction is not none %}
+    <h2>Predicted Sales : {{ prediction }}</h2>
+    {% endif %}
+    <!-- Prediction model strt -->
+    
+    <div class="container">
+        <footer>
+            <div>
+                <h2>Dev Dazzlers</h2>
+                <p>NFT's are transforming the way commerce is transacted</p>
+                <hr />
+                <h3>Get our latest updates</h3>
+
+                <form>
+                    <div class="input-wrap">
+                        <input type="email" placeholder="Enter Your Email" />
+                        <button type="submit" class="btn btn-primary">Send</button>
+                    </div>
+                </form>
+            </div>
+
+            <div>
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="#">Protocol Explore</a></li>
+                    <li><a href="#">System Token</a></li>
+                    <li><a href="#">Optimize Time</a></li>
+                    <li><a href="#">Visual Checking</a></li>
+                    <li><a href="#">Activity Log</a></li>
+                    <li><a href="#">System Auto Since</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h3>Information</h3>
+                <ul>
+                    <li><a href="#">Market Explore</a></li>
+                    <li><a href="#">Ready Token</a></li>
+                    <li><a href="#">Main Option</a></li>
+                    <li><a href="#">File Checking</a></li>
+                    <li><a href="#">Blog Grid</a></li>
+                    <li><a href="#">Fix Bug</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h3>Company</h3>
+                <ul>
+                    <li><a href="#">Upload Files</a></li>
+                    <li><a href="#">Marketplace</a></li>
+                    <li><a href="#">Item Details</a></li>
+                    <li><a href="#">Recent Activity</a></li>
+                    <li><a href="#">Conditions</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h3>Social Media</h3>
+                <ul>
+                    <li><a href="#">Facebook</a></li>
+                    <li><a href="#">Instagram</a></li>
+                    <li><a href="#">Linkedin</a></li>
+                    <li><a href="#">Whatsapp</a></li>
+                    <li><a href="#">X</a></li>
+                    <li><a href="#">Telegram</a></li>
+                </ul>
+            </div>
+        </footer>
+    </div>
+
+</body>
+
+</html>
